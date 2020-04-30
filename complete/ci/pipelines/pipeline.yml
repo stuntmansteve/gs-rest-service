@@ -1,0 +1,28 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: java}
+
+resources:
+
+- name: opp-repo
+  type: git
+  source:
+    branch: master
+    private_key: {{git-private-key}}
+    uri: git@github.com:stuntmansteve/gs-rest-service.git
+
+jobs:
+
+- name: build
+  plan:
+  - do:
+    - get: opp-repo
+      trigger: true
+    - task: build
+      privileged: true
+      file: opp-repo/complete/ci/tasks/build.yml
+      input_mapping:
+        code: opp-repo
+      on_failure:
