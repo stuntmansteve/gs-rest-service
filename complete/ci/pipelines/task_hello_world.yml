@@ -3,7 +3,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: alpine, tag: 3.11.6}
+  source: {repository: 482816889974.dkr.ecr.eu-west-1.amazonaws.com/build_env, tag: latest}
 
 run:
   path: echo
