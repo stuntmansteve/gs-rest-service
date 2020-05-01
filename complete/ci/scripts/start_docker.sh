@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-apk update
-apk add docker
+/sbin/apk update
+/sbin/apk add docker
 
 mkdir -p /sys/fs/cgroup
 mountpoint -q /sys/fs/cgroup || mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup /sys/fs/cgroup
