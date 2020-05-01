@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Running build.sh ..."
+
 START_DOCKER=$(realpath $(dirname $0)/start_docker.sh)
 STOP_DOCKER=$(realpath $(dirname $0)/stop_docker.sh)
 ECR_LOGIN=$(realpath $(dirname $0)/ecr_login.sh)
