@@ -1,0 +1,32 @@
+resources:
+
+  - name: opp-repo
+    type: git
+    source:
+      branch: master
+      private_key: {{git-private-key}}
+      uri: git@github.com:stuntmansteve/gs-rest-service.git
+
+jobs:
+  - name: job-hello-world
+    public: true
+    plan:
+      - get: opp-repo
+        trigger: true
+      - task: build
+        privileged: true
+        file: opp-repo/complete/ci/tasks/build2.yml
+        input_mapping:
+          code: opp-repo
+      - task: hello-world
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source:
+              repository: 482816889974.dkr.ecr.eu-west-1.amazonaws.com/build_env
+              aws_access_key_id: {{aws_access_key_id}}
+              aws_secret_access_key: {{aws_secret_access_key}}
+          run:
+            path: bash
+            args: [/home/steve/hello.sh]
