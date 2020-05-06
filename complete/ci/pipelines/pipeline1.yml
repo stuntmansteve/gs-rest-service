@@ -15,7 +15,7 @@ jobs:
         trigger: true
       - task: build
         privileged: true
-        file: opp-repo/complete/ci/tasks/build2.yml
+        file: opp-repo/complete/ci/tasks/build3.yml
         input_mapping:
           code: opp-repo
       - task: hello-world
