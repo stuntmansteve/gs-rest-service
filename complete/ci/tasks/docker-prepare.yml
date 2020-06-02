@@ -1,0 +1,17 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: 482816889974.dkr.ecr.eu-west-1.amazonaws.com/build_env
+    tag: latest
+
+inputs:
+- name: code
+
+outputs:
+- name: app
+
+run:
+  path:
+    code/ci/scripts/docker-prepare.sh
