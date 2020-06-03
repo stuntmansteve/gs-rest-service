@@ -11,6 +11,8 @@ resources:
   type: docker-image
   source:
     repository: 482816889974.dkr.ecr.eu-west-1.amazonaws.com/gs-rest-service
+    aws_access_key_id: {{aws_access_key_id}}
+    aws_secret_access_key: {{aws_secret_access_key}}
 
 jobs:
 
@@ -18,21 +20,10 @@ jobs:
     plan:
       - do:
           - get: opp-repo
-            trigger: true
-            passed:
-              - build
           - task: package
-            file: opp-repo/ci/tasks/docker-prepare.yml
+            file: opp-repo/complete/ci/tasks/docker-prepare.yml
             input_mapping:
               code: opp-repo
-            on_failure:
-              put: slack
-              params:
-                channel: '#hermes-alerts'
-                text: $TEXT_FILE_CONTENT <https://concourse.hermescloud.co.uk/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME | $BUILD_JOB_NAME>
-                text_file: opp-repo/ci/message/job-failed
-                icon_url: https://pbs.twimg.com/profile_images/714899641628753920/3C8UrVPf_400x400.jpg
-                username: concourse
           - put: grs-image
             params:
               build: app

@@ -14,4 +14,4 @@ outputs:
 
 run:
   path:
-    code/ci/scripts/docker-prepare.sh
+    code/complete/ci/scripts/docker-prepare.sh
